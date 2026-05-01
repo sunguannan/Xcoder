@@ -60,3 +60,19 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+
+# Xcode
+build/
+DerivedData/
+*.bundle
+*.xcodeproj
+!project.yml
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.ipa
+fastlane/*.p8
+
+# OS
+.DS_Store
