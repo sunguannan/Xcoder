@@ -16,7 +16,7 @@
 - **Apple Developer Program** membership.
 - An **App Store Connect API Key** (`.p8` file).
 
-🔑 Setting Up Credentials
+## 🔑 Setting Up Credentials
 Team ID: Find it at developer.apple.com under "Membership Details".
 
 API Key (.p8):
