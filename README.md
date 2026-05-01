@@ -22,3 +22,16 @@ Run the following command on your Mac Mini:
 git clone https://github.com/sunguannan/Xcoder.git
 cd Xcoder
 ./install.sh
+
+🔑 Setting Up Credentials
+Team ID: Find it at developer.apple.com under "Membership Details".
+
+API Key (.p8):
+
+Go to App Store Connect.
+
+Create a new Key with Admin access.
+
+Download the .p8 file and save it as fastlane/AuthKey.p8.
+
+Note down your Issuer ID and Key ID.
