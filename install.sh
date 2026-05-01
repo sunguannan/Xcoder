@@ -1,20 +1,36 @@
-```bash
 #!/bin/bash
 
-echo "🚀 Starting Xcoder Environment Setup..."
+# Get the absolute path of Xcoder directory
+XCODER_ROOT=$(cd "$(dirname "$0")"; pwd)
+TARGET_DIR=$1
 
-# Check for Homebrew
-if ! command -v brew &> /dev/null; then
-    echo "🍺 Homebrew not found. Installing..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [ -z "$TARGET_DIR" ]; then
+    echo "Usage: ./install.sh <target_directory>"
+    echo "Example: ./install.sh ../MyNewApp"
+    exit 1
 fi
 
-# Install Core Tools
-echo "📦 Installing XcodeGen, Fastlane, and ios-deploy..."
+echo "🚀 Xcoder: Initializing new project in $TARGET_DIR..."
+
+# 1. Global Tool Check
+command -v brew >/dev/null 2>&1 || { echo "Installing Homebrew..."; /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; }
+echo "📦 Ensuring XcodeGen, Fastlane, and ios-deploy are installed..."
 brew install xcodegen fastlane ios-deploy
 
-# Create Directory Structure
-mkdir -p Sources/XcoderApp Resources fastlane
+# 2. Create Target Structure
+mkdir -p "$TARGET_DIR/Sources/XcoderApp"
+mkdir -p "$TARGET_DIR/Resources"
+mkdir -p "$TARGET_DIR/fastlane"
 
-echo "✅ Environment Ready!"
-echo "🔗 Next Step: Place your AuthKey_XXXX.p8 file in the 'fastlane/' directory."
+# 3. Copy DNA Files (Templates)
+cp "$XCODER_ROOT/project.yml" "$TARGET_DIR/"
+cp "$XCODER_ROOT/.xcoder-instructions.md" "$TARGET_DIR/"
+cp "$XCODER_ROOT/fastlane/Fastfile" "$TARGET_DIR/fastlane/"
+cp "$XCODER_ROOT/.gitignore" "$TARGET_DIR/"
+
+echo "✅ Project initialized at $TARGET_DIR"
+echo "👉 Next Steps:"
+echo "1. cd $TARGET_DIR"
+echo "2. Update YOUR_TEAM_ID in project.yml"
+echo "3. Place AuthKey.p8 in fastlane/ folder"
+echo "4. Start your AI Agent in the project folder!"
