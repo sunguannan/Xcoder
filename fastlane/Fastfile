@@ -3,16 +3,16 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new build to TestFlight"
   lane :preview do
-    # Generate project from project.yml
-    sh("xcodegen generate")
+    sh("cd .. && xcodegen generate")
     
-    # Auto-increment build number
-    increment_build_number
+    increment_build_number(xcodeproj: "#{ENV['APP_NAME']}.xcodeproj")
     
-    # Build and Upload
-    build_app(scheme: "XcoderApp")
+    build_app(scheme: ENV['APP_NAME'])
+
+    api_key_path = File.exist?("AuthKey.json") ? "fastlane/AuthKey.json" : "fastlane/AuthKey.p8"
+    
     upload_to_testflight(
-      api_key_path: "fastlane/AuthKey.p8",
+      api_key_path: api_key_path,
       skip_waiting_for_build_processing: true
     )
   end
