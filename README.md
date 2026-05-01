@@ -69,3 +69,10 @@ To Debug Locally: The Agent runs bundle exec fastlane local to deploy directly t
 After you check the app on your iPhone via TestFlight, give feedback to the Agent:
 
 "The start button is too small, make it larger and push a new version."
+
+## ⚠️ Critical Requirements (Avoid the Pits!)
+
+1. **API Key Role**: Your App Store Connect API Key **MUST** have the **Admin** role.
+2. **First-time Creation**: Because API Keys sometimes lack 'CREATE' permissions, it is highly recommended to **manually create the App record** in App Store Connect once.
+3. **Xcode Path**: If the build fails, ensure your system uses the full Xcode app:  
+   `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer`
