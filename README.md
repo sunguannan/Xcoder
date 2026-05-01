@@ -19,6 +19,6 @@
 ## 🚀 Quick Start
 Run the following command on your Mac Mini:
 ```bash
-git clone [https://github.com/your-username/Xcoder.git](https://github.com/your-username/Xcoder.git)
+git clone https://github.com/sunguannan/Xcoder.git
 cd Xcoder
 ./install.sh
