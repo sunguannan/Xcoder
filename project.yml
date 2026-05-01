@@ -1,3 +1,4 @@
+# project.yml
 name: XcoderApp
 options:
   bundleIdPrefix: com.xcoder
@@ -9,4 +10,7 @@ targets:
     sources: [Sources]
     settings:
       CODE_SIGN_IDENTITY: "Apple Development"
-      DEVELOPMENT_TEAM: "YOUR_TEAM_ID" # <--- Replace with your Apple Team ID
+      DEVELOPMENT_TEAM: "YOUR_TEAM_ID"
+      VERSIONING_SYSTEM: "apple-generic"
+      CURRENT_PROJECT_VERSION: "1"
+      MARKETING_VERSION: "1.0.0"
