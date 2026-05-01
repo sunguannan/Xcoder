@@ -16,23 +16,16 @@
 - **Apple Developer Program** membership.
 - An **App Store Connect API Key** (`.p8` file).
 
-## 🔑 Setting Up Credentials
-Team ID: Find it at developer.apple.com under "Membership Details".
+## 🔑 Preparation (Credentials)
+Before initializing a project, ensure you have the following from Apple:
+1. **Team ID**: Find it at [developer.apple.com](https://developer.apple.com/account/) under "Membership Details".
+2. **API Key (.p8)**: 
+   - Generate at [App Store Connect](https://appstoreconnect.apple.com/access/api) (requires Admin access).
+   - Download the `.p8` file. You will need to place this in the `fastlane/` folder of your generated project.
+   - Note your **Issuer ID** and **Key ID**.
 
-API Key (.p8):
-
-Go to App Store Connect.
-
-Create a new Key with Admin access.
-
-Download the .p8 file and save it as fastlane/AuthKey.p8.
-
-Note down your Issuer ID and Key ID.
-
-
-## 🚀 Quick Start
-Run the following command on your Mac Mini:
+## 🚀 How to Create a Project
+Xcoder acts as a template generator. To create a new iOS project in a sibling directory:
 ```bash
-git clone https://github.com/sunguannan/Xcoder.git
-cd Xcoder
-./install.sh
+cd codebase/Xcoder
+./install.sh ../MyNewApp
