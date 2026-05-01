@@ -28,4 +28,5 @@ Before initializing a project, ensure you have the following from Apple:
 Xcoder acts as a template generator. To create a new iOS project in a sibling directory:
 ```bash
 cd codebase/Xcoder
-./install.sh ../MyNewApp
+chmod +x create.sh
+./create.sh ../MyNewApp
