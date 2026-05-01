@@ -30,3 +30,35 @@ Xcoder acts as a template generator. To create a new iOS project in a sibling di
 cd codebase/Xcoder
 chmod +x create.sh
 ./create.sh ../MyNewApp
+```
+
+## 🛠️ Post-Creation Setup
+After running create.sh, navigate to your new project and finalize the setup:
+
+CD into project: cd ../MyNewApp.
+
+Set Team ID: Open project.yml and replace YOUR_TEAM_ID with your actual Apple Team ID.
+
+Add API Key: Move your AuthKey_XXXX.p8 file into the fastlane/ folder.
+
+Update Fastfile (Optional): Add your issuer_id and key_id to the upload_to_testflight section in fastlane/Fastfile if not using environment variables.
+
+## 🤖 Agent Workflow
+Now, open your AI Agent (Claude Code, Cursor, etc.) inside the MyNewApp folder.
+
+1. The Handoff
+The Agent will automatically detect .xcoder-instructions.md and understand how to use the toolchain. You can start by saying:
+
+"Read the instructions and build a simple Pomodoro timer app."
+
+2. Building & Previewing
+When the Agent is ready to show you the progress, it will use the pre-configured commands:
+
+To Push to TestFlight: The Agent runs bundle exec fastlane preview. This triggers xcodegen, builds the app, and uploads it to Apple.
+
+To Debug Locally: The Agent runs bundle exec fastlane local to deploy directly to a USB-connected iPhone.
+
+3. Feedback Loop
+After you check the app on your iPhone via TestFlight, give feedback to the Agent:
+
+"The start button is too small, make it larger and push a new version."
