@@ -10,8 +10,6 @@ if [ -z "$TARGET_PATH" ]; then
     exit 1
 fi
 
-# 核心改进：从路径中提取文件夹名作为项目名
-# 例如：如果输入是 ../MyCoolApp，APP_NAME 就是 MyCoolApp
 APP_NAME=$(basename "$TARGET_PATH")
 
 echo "🚀 Xcoder: Initializing new project '$APP_NAME' in $TARGET_PATH..."
@@ -26,15 +24,18 @@ mkdir -p "$TARGET_PATH/Sources/$APP_NAME"
 mkdir -p "$TARGET_PATH/Resources"
 mkdir -p "$TARGET_PATH/fastlane"
 
+XCODE_PATH=$(xcode-select -p)
+if [[ $XCODE_PATH == *"CommandLineTools"* ]]; then
+    echo "⚠️  WARNING: xcode-select points to CommandLineTools."
+    echo "Please run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer"
+fi
+
 # 3. Copy Template Files from Xcoder to Target
 cp "$XCODER_ROOT/project.yml" "$TARGET_PATH/"
 cp "$XCODER_ROOT/.xcoder-instructions.md" "$TARGET_DIR/"
 cp "$XCODER_ROOT/fastlane/Fastfile" "$TARGET_PATH/fastlane/"
 cp "$XCODER_ROOT/.gitignore" "$TARGET_PATH/"
 
-# 4. 魔法时刻：自动替换占位符
-# 使用 sed 命令将文件里的 "XcoderApp" 全部替换为实际的项目名
-# macOS 系统的 sed -i 需要带一个空字符串参数
 sed -i '' "s/XcoderApp/$APP_NAME/g" "$TARGET_PATH/project.yml"
 sed -i '' "s/XcoderApp/$APP_NAME/g" "$TARGET_PATH/fastlane/Fastfile"
 
