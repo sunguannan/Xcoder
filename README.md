@@ -20,9 +20,16 @@
 Before initializing a project, ensure you have the following from Apple:
 1. **Team ID**: Find it at [developer.apple.com](https://developer.apple.com/account/) under "Membership Details".
 2. **API Key (.p8)**: 
-   - Generate at [App Store Connect > Users and Access > Integrations](https://appstoreconnect.apple.com/access/integrations/api) (requires Admin access).
-   - Download the `.p8` file. You will need to place this in the `fastlane/` folder of your generated project.
-   - Note your **Issuer ID** and **Key ID**.
+   - Generate at [App Store Connect > Users and Access > Integrations](https://appstoreconnect.apple.com/access/integrations/api).
+   - Download the `.p8` file (usually named `AuthKey_ID.p8`).
+   - **Crucial Step**: Rename the downloaded file to **`AuthKey.p8`**.
+
+## 🛠️ Post-Creation Setup
+After running `create.sh`, finalize the setup in your new project folder:
+1. **CD into project**: `cd ../MyNewApp`.
+2. **Set Team ID**: Open `project.yml` and replace `YOUR_TEAM_ID` with your actual Apple Team ID.
+3. **Add API Key**: Move your renamed **`AuthKey.p8`** file into the **`fastlane/`** folder.
+4. **Update Fastfile**: Ensure the `api_key_path` in `fastlane/Fastfile` matches the filename (default is `fastlane/AuthKey.p8`).
      
 ## 🚀 How to Create a Project
 Xcoder acts as a template generator. To create a new iOS project in a sibling directory:
