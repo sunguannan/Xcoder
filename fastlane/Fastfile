@@ -1,0 +1,19 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new build to TestFlight"
+  lane :preview do
+    # Generate project from project.yml
+    sh("xcodegen generate")
+    
+    # Auto-increment build number
+    increment_build_number
+    
+    # Build and Upload
+    build_app(scheme: "XcoderApp")
+    upload_to_testflight(
+      api_key_path: "fastlane/AuthKey.p8",
+      skip_waiting_for_build_processing: true
+    )
+  end
+end
