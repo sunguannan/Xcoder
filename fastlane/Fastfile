@@ -3,16 +3,32 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new build to TestFlight"
   lane :preview do
+    # Force use full Xcode to bypass xcode-select limitations
+    ENV["DEVELOPER_DIR"] = "/Applications/Xcode.app/Contents/Developer"
+    
+    # Generate project from project.yml (move to root first)
     sh("cd .. && xcodegen generate")
+    
+    # Use JSON key format for unified authentication
+    api_key = get_app_store_connect_api_key(api_key_path: "fastlane/AuthKey.json")
+    
+    # Automate certificates and provisioning profiles
+    cert(api_key: api_key)
+    sigh(api_key: api_key, force: true)
+    
+    # Critical: Apply downloaded profiles to the generated project
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "#{ENV['APP_NAME']}.xcodeproj",
+      profile_name: lane_context[SharedValues::SIGH_NAME]
+    )
     
     increment_build_number(xcodeproj: "#{ENV['APP_NAME']}.xcodeproj")
     
     build_app(scheme: ENV['APP_NAME'])
-
-    api_key_path = File.exist?("AuthKey.json") ? "fastlane/AuthKey.json" : "fastlane/AuthKey.p8"
     
     upload_to_testflight(
-      api_key_path: api_key_path,
+      api_key: api_key,
       skip_waiting_for_build_processing: true
     )
   end
